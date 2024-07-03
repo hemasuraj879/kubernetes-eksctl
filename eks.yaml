@@ -5,16 +5,18 @@ metadata:
   name: eks-spot-cluster
   region: us-east-1
 
-managedNodeGroups: # this is also completely managed by AWS
+vpc:
+  subnets:
+    public:
+      us-east-1a:
+        id: subnet-08c9f4e0084d2e626
+
+managedNodeGroups:
   - name: spot
     instanceType: m5.large
-    # your K8 node can be anytime taken back by AWS
     spot: true
-    availabilityZones: # ebs static provisioning
+    availabilityZones:
     - us-east-1a
     desiredCapacity: 3
     ssh:
-      publicKeyName: roboshop.pub # replace this with your keypair exists in AWS.
-
-
-      #kubernetes-eksctl
+      publicKeyName: roboshop.pub
